@@ -344,16 +344,25 @@ async function start() {
   const schema = fs.readFileSync(path.join(__dirname, "database", "schema.sql"), "utf8");
   await pool.query(schema);
 
-  const adminUsername = cleanUsername(process.env.ADMIN_USERNAME || "ADMIN");
-  const adminPassword = process.env.ADMIN_PASSWORD || "hike223";
+  const adminUsername = cleanUsername(process.env.ADMIN_USERNAME || "admin");
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword || adminPassword.length < 12) {
+    throw new Error("Set ADMIN_PASSWORD to a password at least 12 characters long in Render.");
+  }
+  const hash = await bcrypt.hash(adminPassword, 12);
   const existing = await pool.query("SELECT id FROM users WHERE username = $1", [adminUsername]);
   if (!existing.rowCount) {
-    const hash = await bcrypt.hash(adminPassword, 12);
     await pool.query(
       "INSERT INTO users (username, password_hash, role, next_bonus_at) VALUES ($1, $2, 'admin', NOW() + INTERVAL '100 years')",
       [adminUsername, hash]
     );
-    console.log("Initial admin account created. Change its password before public launch.");
+    console.log("Initial admin account created.");
+  } else {
+    await pool.query(
+      "UPDATE users SET password_hash = $1, role = 'admin' WHERE username = $2",
+      [hash, adminUsername]
+    );
+    console.log("Admin password and role synchronized from Render environment variables.");
   }
   app.listen(port, () => console.log("HIKE BANK listening on port " + port));
 }
