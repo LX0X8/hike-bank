@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08111f">
+  <title>HIKE BANK</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">H</span><span>HIKE <b>BANK</b></span></a>
+    <div id="top-actions" class="top-actions"></div>
+  </header>
+
+  <main>
+    <section id="auth-view" class="auth-layout">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> THE PLAYER CREDIT NETWORK</div>
+        <h1>Your credits.<br><span>Your bank.</span></h1>
+        <p>Manage your DSMP game credits, request deposits, and track every transaction in one place.</p>
+        <div class="feature-row"><span>✦ 48-hour player rewards</span><span>✦ Secure account access</span></div>
+      </div>
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="tab active" data-tab="login">Sign in</button>
+          <button class="tab" data-tab="register">Create account</button>
+        </div>
+        <form id="auth-form">
+          <label for="username">USERNAME</label>
+          <input id="username" name="username" autocomplete="username" minlength="3" maxlength="24" placeholder="Your username" required>
+          <label for="password">PASSWORD</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" placeholder="Your password" required>
+          <button id="auth-submit" class="primary-button" type="submit">Sign in <span>→</span></button>
+          <p id="auth-message" class="message"></p>
+        </form>
+        <p class="fine-print">HIKE BANK is a virtual game-credit ledger. It does not hold or transfer real money.</p>
+      </div>
+    </section>
+
+    <section id="dashboard-view" class="dashboard hidden">
+      <div class="welcome-line"><div><div class="eyebrow">ACCOUNT OVERVIEW</div><h1>Welcome back, <span id="welcome-name">Player</span></h1></div><div id="role-pill" class="role-pill">PLAYER</div></div>
+      <div class="balance-card">
+        <div class="balance-top"><span>AVAILABLE BALANCE</span><span class="balance-icon">◈</span></div>
+        <div id="balance" class="balance-number">0</div>
+        <div class="balance-bottom"><span>HIKE BANK CREDITS</span><span id="bonus-countdown">Next reward loading…</span></div>
+      </div>
+      <div class="action-grid">
+        <div class="panel action-panel">
+          <div class="panel-heading"><div><div class="eyebrow">MOVE CREDITS</div><h2>Deposit request</h2></div><span class="panel-icon">＋</span></div>
+          <p>Send a request to an admin to add credits to your account.</p>
+          <form id="deposit-form" class="inline-form"><input id="deposit-amount" type="number" min="1" step="1" placeholder="Amount" required><button class="primary-button" type="submit">Request</button></form>
+          <p id="deposit-message" class="message"></p>
+        </div>
+        <div class="panel action-panel">
+          <div class="panel-heading"><div><div class="eyebrow">MOVE CREDITS</div><h2>Withdraw</h2></div><span class="panel-icon">↗</span></div>
+          <p>Withdraw credits from your available game-credit balance.</p>
+          <form id="withdraw-form" class="inline-form"><input id="withdraw-amount" type="number" min="1" step="1" placeholder="Amount" required><button class="primary-button" type="submit">Withdraw</button></form>
+          <p id="withdraw-message" class="message"></p>
+        </div>
+      </div>
+      <section id="admin-panel" class="panel admin-panel hidden">
+        <div class="panel-heading"><div><div class="eyebrow">CONTROL CENTER</div><h2>Admin tools</h2></div><span class="admin-tag">ADMIN</span></div>
+        <div class="admin-grid">
+          <form id="adjust-form">
+            <label>PLAYER USERNAME</label><input id="adjust-username" placeholder="username" required>
+            <label>AMOUNT</label><input id="adjust-amount" type="number" min="1" step="1" placeholder="Credits" required>
+            <div class="button-row"><button class="primary-button" name="action" value="add" type="submit">Add credits</button><button class="secondary-button" name="action" value="remove" type="submit">Remove</button></div>
+            <p id="adjust-message" class="message"></p>
+          </form>
+          <div><div class="subheading">PENDING DEPOSIT REQUESTS</div><div id="deposit-requests" class="request-list">Loading…</div></div>
+        </div>
+        <div class="subheading users-heading">PLAYER ACCOUNTS</div><div id="user-list" class="user-list">Loading…</div>
+      </section>
+      <section class="panel history-panel">
+        <div class="panel-heading"><div><div class="eyebrow">ACCOUNT ACTIVITY</div><h2>Recent transactions</h2></div><span class="panel-icon">↻</span></div>
+        <div id="transactions" class="transactions"><div class="empty-state">Your transactions will appear here.</div></div>
+      </section>
+    </section>
+  </main>
+  <footer><span>© HIKE BANK</span><span>VIRTUAL GAME CREDITS · NOT REAL CURRENCY</span></footer>
+  <script src="/app.js"></script>
+</body>
+</html>
